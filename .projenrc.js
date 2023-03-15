@@ -7,7 +7,15 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   defaultReleaseBranch: "main",
   cdkVersion: "2.69.0",
-  deps: ["@aws-prototyping-sdk/pdk-nag", "cdk-nag", "cdk-pipelines-github"],
+  deps: [
+    "@aws-sdk/client-dynamodb",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/lib-storage",
+    "stream-transform",
+    "@aws-prototyping-sdk/pdk-nag",
+    "cdk-nag",
+    "cdk-pipelines-github",
+  ],
 
   prettier: true,
   gitignore: [".idea"],
