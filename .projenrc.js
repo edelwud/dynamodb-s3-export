@@ -1,12 +1,20 @@
-const { awscdk } = require('projen');
-const project = new awscdk.AwsCdkTypeScriptApp({
-  cdkVersion: '2.1.0',
-  defaultReleaseBranch: 'main',
-  name: 'dynamodb-s3-export',
+const { awscdk } = require("projen");
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+const project = new awscdk.AwsCdkTypeScriptApp({
+  name: "dynamodb-s3-export",
+  description:
+    "Export data from DynamoDB table to S3 bucket everyday at 2:00 AM UTC time",
+
+  defaultReleaseBranch: "main",
+  cdkVersion: "2.69.0",
+  deps: [
+    "@aws-prototyping-sdk/pdk-nag",
+    "@aws-prototyping-sdk/pipeline",
+    "cdk-nag",
+  ],
+
+  prettier: true,
+  gitignore: [".idea"],
 });
+
 project.synth();

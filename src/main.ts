@@ -1,23 +1,24 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { PDKNag } from "@aws-prototyping-sdk/pdk-nag";
+import { ExporterApplicationStage } from "./exporter-application.stage";
+import { PipelineStack } from "./pipeline.stack";
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
+const app = PDKNag.app();
 
-    // define resources here...
-  }
-}
+const pipelineStack = new PipelineStack(app, "PipelineStack", {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
 
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+const prodDynamoDBS3Export = new ExporterApplicationStage(app, "prod", {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
 
-const app = new App();
-
-new MyStack(app, 'dynamodb-s3-export-dev', { env: devEnv });
-// new MyStack(app, 'dynamodb-s3-export-prod', { env: prodEnv });
+pipelineStack.pipeline.addStage(prodDynamoDBS3Export);
+pipelineStack.pipeline.buildPipeline();
 
 app.synth();
