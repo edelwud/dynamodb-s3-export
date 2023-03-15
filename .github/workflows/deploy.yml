@@ -52,7 +52,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: ${Token[TOKEN.611]}
+          role-to-assume: ${Token[TOKEN.618]}
           role-session-name: github-actions-runner
       - id: Publish
         name: Publish Assets-FileAsset1
@@ -81,7 +81,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: ${Token[TOKEN.611]}
+          role-to-assume: ${Token[TOKEN.618]}
           role-session-name: github-actions-runner
       - id: Publish
         name: Publish Assets-FileAsset2
@@ -110,7 +110,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: ${Token[TOKEN.611]}
+          role-to-assume: ${Token[TOKEN.618]}
           role-session-name: github-actions-runner
       - id: Publish
         name: Publish Assets-FileAsset3
@@ -132,7 +132,7 @@ jobs:
           aws-region: us-east-1
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: ${Token[TOKEN.611]}
+          role-to-assume: ${Token[TOKEN.618]}
           role-session-name: github-actions-runner
       - name: Assume CDK Deploy Role
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -171,7 +171,7 @@ jobs:
           aws-region: us-east-1
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: ${Token[TOKEN.611]}
+          role-to-assume: ${Token[TOKEN.618]}
           role-session-name: github-actions-runner
       - name: Assume CDK Deploy Role
         uses: aws-actions/configure-aws-credentials@v1-node16
