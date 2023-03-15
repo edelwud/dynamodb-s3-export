@@ -10,6 +10,7 @@ import { Construct } from "constructs";
 
 export class GithubActionsStack extends Stack {
   role = new GitHubActionRole(this, "GithubActionsRole", {
+    roleName: "GithubActionsDeployRole",
     repos: ["edelwud/dynamodb-s3-export"],
   });
 
@@ -18,7 +19,7 @@ export class GithubActionsStack extends Stack {
       commands: ["yarn", "npx projen build"],
     }),
     awsCreds: AwsCredentials.fromOpenIdConnect({
-      gitHubActionRoleArn: this.role.role.roleArn,
+      gitHubActionRoleArn: `arn:aws:iam::${this.account}:role/GithubActionsDeployRole`,
       roleSessionName: "github-actions-runner",
     }),
   });
