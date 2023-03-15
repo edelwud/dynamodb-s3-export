@@ -15,7 +15,7 @@ export class GithubActionsStack extends Stack {
 
   pipeline = new GitHubWorkflow(this, "Pipeline", {
     synth: new ShellStep("Build", {
-      commands: ["npx projen", "npx projen build"],
+      commands: ["yarn", "npx projen build"],
     }),
     awsCreds: AwsCredentials.fromOpenIdConnect({
       gitHubActionRoleArn: this.role.role.roleArn,
