@@ -15,7 +15,11 @@ const exporterAppProd = new ExporterApplicationStage(app, "prod", { env });
 
 const exporterAppDev = new ExporterApplicationStage(app, "dev", { env });
 
-githubStack.pipeline.addStageWithGitHubOptions(exporterAppProd, {});
-githubStack.pipeline.addStage(exporterAppDev);
+githubStack.pipeline.addStageWithGitHubOptions(exporterAppDev, {
+  gitHubEnvironment: { name: "dev" },
+});
+githubStack.pipeline.addStageWithGitHubOptions(exporterAppProd, {
+  gitHubEnvironment: { name: "prod" },
+});
 
 app.synth();

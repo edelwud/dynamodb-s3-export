@@ -115,11 +115,12 @@ jobs:
       - id: Publish
         name: Publish Assets-FileAsset3
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
-  prod-dynamodb-s3-export-Deploy:
-    name: Deploy proddynamodbs3exportED5FD8D7
+  dev-dynamodb-s3-export-Deploy:
+    name: Deploy devdynamodbs3export9CBD8EF1
     permissions:
       contents: read
       id-token: write
+    environment: dev
     needs:
       - Build-Build
       - Assets-FileAsset1
@@ -148,21 +149,22 @@ jobs:
       - id: Deploy
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
         with:
-          name: prod-dynamodb-s3-export
+          name: dev-dynamodb-s3-export
           template: https://cdk-hnb659fds-assets-762714406455-us-east-1.s3.us-east-1.amazonaws.com/${{
             needs.Assets-FileAsset1.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"
           role-arn: arn:aws:iam::762714406455:role/cdk-hnb659fds-cfn-exec-role-762714406455-us-east-1
-  dev-dynamodb-s3-export-Deploy:
-    name: Deploy devdynamodbs3export9CBD8EF1
+  prod-dynamodb-s3-export-Deploy:
+    name: Deploy proddynamodbs3exportED5FD8D7
     permissions:
       contents: read
       id-token: write
+    environment: prod
     needs:
       - Build-Build
       - Assets-FileAsset3
       - Assets-FileAsset2
-      - prod-dynamodb-s3-export-Deploy
+      - dev-dynamodb-s3-export-Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Authenticate Via OIDC Role
@@ -187,7 +189,7 @@ jobs:
       - id: Deploy
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
         with:
-          name: dev-dynamodb-s3-export
+          name: prod-dynamodb-s3-export
           template: https://cdk-hnb659fds-assets-762714406455-us-east-1.s3.us-east-1.amazonaws.com/${{
             needs.Assets-FileAsset3.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"

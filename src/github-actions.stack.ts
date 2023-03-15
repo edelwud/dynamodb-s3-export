@@ -26,6 +26,8 @@ export class GithubActionsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    this.pipeline.node.addDependency(this.role);
+
     NagSuppressions.addStackSuppressions(this, [
       {
         id: "AwsSolutions-IAM5",
