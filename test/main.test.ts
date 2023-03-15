@@ -1,6 +1,6 @@
 import { App } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { DynamoDBS3ExportStack } from "../src/main";
+import { DynamoDBS3ExportStack } from "../src/dynamodb-s3-export.stack";
 
 test("Snapshot", () => {
   const app = new App();

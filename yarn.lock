@@ -25,17 +25,10 @@
   resolved "https://registry.yarnpkg.com/@aws-cdk/asset-node-proxy-agent-v5/-/asset-node-proxy-agent-v5-2.0.85.tgz#98eff3d393e8ea9246128b5330eb3f0f7ecb5331"
   integrity sha512-o+k40Gw+h6MqzOe1eU3X+P3S9DAR1IPwxHKS999KQJNkvSGJHg5RVV1bW6EibQwA9ndqXvkym3LrXtIH9KP+Hg==
 
-"@aws-prototyping-sdk/pdk-nag@^0.14.11", "@aws-prototyping-sdk/pdk-nag@^0.x":
+"@aws-prototyping-sdk/pdk-nag@^0.14.11":
   version "0.14.11"
   resolved "https://registry.yarnpkg.com/@aws-prototyping-sdk/pdk-nag/-/pdk-nag-0.14.11.tgz#357ecf94baa8cf18cbba7760f433b4ef4388017d"
   integrity sha512-OZ5wUePKMrW1raW0ky3ZHYKasp5BFXO6HjqBeWpxexOQgig7vUONfZVTtW1VUjzV4vbH8GlO0EIfX+SEM1e0mA==
-
-"@aws-prototyping-sdk/pipeline@^0.14.11":
-  version "0.14.11"
-  resolved "https://registry.yarnpkg.com/@aws-prototyping-sdk/pipeline/-/pipeline-0.14.11.tgz#3c4c0ca5511c449fc31515478f975327d56f63b9"
-  integrity sha512-E+CcGWLj1AF1SBr3DIeZIUeAnaNfPklZoMDW0tfB52y2zVxTNurwKOE1+zT0m3u+rTgwI9WDNCX02dmLTDUC5Q==
-  dependencies:
-    "@aws-prototyping-sdk/pdk-nag" "^0.x"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.18.6":
   version "7.18.6"
@@ -1653,6 +1646,15 @@ cdk-nag@^2.22.36:
   resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.22.36.tgz#d12b44d16d7ae597cb7b9037ed16790b310e569b"
   integrity sha512-L0Eae4I7gig5EGSQ1f/gVYVgmuhBfPZSqshX5A3UKLAK2+X+dWNSwCroZ75GucY/LiDZH/bef8ztdOS/+k83pA==
 
+cdk-pipelines-github@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/cdk-pipelines-github/-/cdk-pipelines-github-0.4.1.tgz#f5a434bf9aa657d89bb1ccc87b1240f44c390a52"
+  integrity sha512-ZF2osgZfJYuf2ViBH4d5v4Q7BJAq6ylKH4PwArNHzFmCJVTyaUr+nRjEOquGmxMGy1BafWNuDad/j4TOj2VeWw==
+  dependencies:
+    decamelize "^5.0.1"
+    fast-json-patch "^3.1.1"
+    yaml "^2.2.1"
+
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
@@ -1878,6 +1880,11 @@ debug@^3.2.7:
   integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
   dependencies:
     ms "^2.1.1"
+
+decamelize@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-5.0.1.tgz#db11a92e58c741ef339fb0a2868d8a06a9a7b1e9"
+  integrity sha512-VfxadyCECXgQlkoEAjeghAr5gY3Hf+IKjKb+X8tGVDtveCjN+USwprd2q3QXBR9T1+x2DG0XZF5/w+7HAtSaXA==
 
 decompress-response@^6.0.0:
   version "6.0.0"

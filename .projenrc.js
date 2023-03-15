@@ -7,11 +7,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   defaultReleaseBranch: "main",
   cdkVersion: "2.69.0",
-  deps: [
-    "@aws-prototyping-sdk/pdk-nag",
-    "@aws-prototyping-sdk/pipeline",
-    "cdk-nag",
-  ],
+  deps: ["@aws-prototyping-sdk/pdk-nag", "cdk-nag", "cdk-pipelines-github"],
 
   prettier: true,
   gitignore: [".idea"],

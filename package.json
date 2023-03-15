@@ -50,9 +50,9 @@
   },
   "dependencies": {
     "@aws-prototyping-sdk/pdk-nag": "^0.14.11",
-    "@aws-prototyping-sdk/pipeline": "^0.14.11",
     "aws-cdk-lib": "^2.69.0",
     "cdk-nag": "^2.22.36",
+    "cdk-pipelines-github": "^0.4.1",
     "constructs": "^10.0.5"
   },
   "license": "Apache-2.0",

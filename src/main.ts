@@ -1,24 +1,31 @@
 import { PDKNag } from "@aws-prototyping-sdk/pdk-nag";
 import { ExporterApplicationStage } from "./exporter-application.stage";
-import { PipelineStack } from "./pipeline.stack";
+import { GithubActionsStack } from "./github-actions.stack";
 
 const app = PDKNag.app();
 
-const pipelineStack = new PipelineStack(app, "PipelineStack", {
+const githubStack = new GithubActionsStack(app, "GithubActions", {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
 });
 
-const prodDynamoDBS3Export = new ExporterApplicationStage(app, "prod", {
+const exporterAppProd = new ExporterApplicationStage(app, "prod", {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
 });
 
-pipelineStack.pipeline.addStage(prodDynamoDBS3Export);
-pipelineStack.pipeline.buildPipeline();
+const exporterAppDev = new ExporterApplicationStage(app, "dev", {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
+
+githubStack.pipeline.addStage(exporterAppProd);
+githubStack.pipeline.addStage(exporterAppDev);
 
 app.synth();
