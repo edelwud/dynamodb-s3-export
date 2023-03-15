@@ -53,3 +53,4 @@ junit.xml
 /cdk.out/
 .cdk.staging/
 .parcel-cache/
+!/src/services/export-function.ts

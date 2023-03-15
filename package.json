@@ -4,6 +4,8 @@
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",
+    "bundle:services\\export.lambda": "npx projen bundle:services\\export.lambda",
+    "bundle:services\\export.lambda:watch": "npx projen bundle:services\\export.lambda:watch",
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",

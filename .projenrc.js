@@ -15,6 +15,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   prettier: true,
   gitignore: [".idea"],
+
+  lambdaOptions: {
+    runtime: awscdk.LambdaRuntime.NODEJS_18_X,
+  },
 });
 
 project.synth();

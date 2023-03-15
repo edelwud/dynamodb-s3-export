@@ -56,7 +56,8 @@
       {
         "devDependencies": [
           "**/test/**",
-          "**/build-tools/**"
+          "**/build-tools/**",
+          "src/services/export.lambda.ts"
         ],
         "optionalDependencies": false,
         "peerDependencies": true

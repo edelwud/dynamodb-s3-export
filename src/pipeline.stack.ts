@@ -9,8 +9,10 @@ export class PipelineStack extends Stack {
     super(scope, id, props);
 
     this.pipeline = new PDKPipeline(this, "ApplicationPipeline", {
-      primarySynthDirectory: "packages/infra/cdk.out",
-      repositoryName: this.node.tryGetContext("repositoryName") || "monorepo",
+      primarySynthDirectory: "cdk.out",
+      repositoryName:
+        this.node.tryGetContext("repositoryName") || "ddb-s3-export",
+      defaultBranchName: "main",
       publishAssetsInParallel: false,
       crossAccountKeys: true,
       synth: {},
