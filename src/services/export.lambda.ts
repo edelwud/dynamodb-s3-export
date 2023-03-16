@@ -20,10 +20,8 @@ export const handler = async () => {
     }
   );
 
-  const csvTransform = transform((data: Record<string, AttributeValue>[]) => {
-    return data.map((record) =>
-      Object.keys(record).map((field) => JSON.stringify(record[field]))
-    );
+  const csvTransform = transform((record: Record<string, AttributeValue>) => {
+    return Object.keys(record).map((field) => JSON.stringify(record[field]));
   });
 
   const upload = new Upload({
