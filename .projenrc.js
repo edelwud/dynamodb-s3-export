@@ -11,7 +11,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "@aws-sdk/client-dynamodb",
     "@aws-sdk/client-s3",
     "@aws-sdk/lib-storage",
-    "stream-transform",
+    "csv-stringify",
     "@aws-prototyping-sdk/pdk-nag",
     "cdk-nag",
     "cdk-pipelines-github",

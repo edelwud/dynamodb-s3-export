@@ -122,7 +122,7 @@
       "type": "runtime"
     },
     {
-      "name": "stream-transform",
+      "name": "csv-stringify",
       "type": "runtime"
     }
   ],

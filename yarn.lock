@@ -2917,6 +2917,11 @@ crypto-random-string@^4.0.0:
   dependencies:
     type-fest "^1.0.1"
 
+csv-stringify@*:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/csv-stringify/-/csv-stringify-6.3.0.tgz#21ae523c5c0b25f16d8625bde45dc1b4b5b77eb0"
+  integrity sha512-kTnnBkkLmAR1G409aUdShppWUClNbBQZXhrKrXzKYBGw4yfROspiFvVmjbKonCrdGfwnqwMXKLQG7ej7K/jwjg==
+
 debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
@@ -5994,11 +5999,6 @@ stream-browserify@3.0.0:
   dependencies:
     inherits "~2.0.4"
     readable-stream "^3.5.0"
-
-stream-transform@*:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-3.2.2.tgz#3d6083d6582eddac233645fcee574fc56ebeb184"
-  integrity sha512-DHZQPNxvjU2qdQlGcpitn8pkJHQVTqdshtgXaLz6Vc5VCAognbGuuwGS5ugeqGVnyw8j4h89QcV8cwm0D1+V0A==
 
 string-length@^4.0.1:
   version "4.0.2"
