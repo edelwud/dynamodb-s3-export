@@ -1,3 +1,4 @@
+import { PassThrough } from "stream";
 import {
   AttributeValue,
   DynamoDBClient,
@@ -29,7 +30,7 @@ export const handler = async () => {
     params: {
       Bucket: process.env.DESTINATION_BUCKET_NAME,
       Key: new Date().toISOString().split("T")[0] + ".csv",
-      Body: csvTransform,
+      Body: csvTransform.pipe(new PassThrough()),
     },
     leavePartsOnError: false,
   });
