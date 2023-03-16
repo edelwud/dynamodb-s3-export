@@ -33,5 +33,7 @@ export const handler = async () => {
     );
   }
 
+  stringifier.end();
+
   return upload.done();
 };
