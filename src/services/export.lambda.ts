@@ -22,7 +22,9 @@ export const handler = async () => {
   );
 
   const csvTransform = transform((record: Record<string, AttributeValue>) => {
-    return Object.keys(record).map((field) => JSON.stringify(record[field]));
+    return Object.keys(record)
+      .map((field) => JSON.stringify(record[field]))
+      .join(",");
   });
 
   const upload = new Upload({
