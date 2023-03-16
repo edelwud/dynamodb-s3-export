@@ -2,11 +2,7 @@ import { Stack, StackProps } from "aws-cdk-lib";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
-import {
-  BlockPublicAccess,
-  Bucket,
-  BucketAccessControl,
-} from "aws-cdk-lib/aws-s3";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { ExportFunction } from "./services/export-function";
 
@@ -21,9 +17,6 @@ export class DynamoDBS3ExportStack extends Stack {
 
   destinationBucket = new Bucket(this, "Destination", {
     enforceSSL: true,
-    accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
-    serverAccessLogsPrefix: "access-logs",
-    blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
   });
 
   exportLambda = new ExportFunction(this, "ExportFunction", {
