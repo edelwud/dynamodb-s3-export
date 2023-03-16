@@ -1,5 +1,7 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
+import { Rule, Schedule } from "aws-cdk-lib/aws-events";
+import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
 import {
   BlockPublicAccess,
   Bucket,
@@ -33,6 +35,14 @@ export class DynamoDBS3ExportStack extends Stack {
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    new Rule(this, "ExportInitiator", {
+      schedule: Schedule.cron({
+        minute: "0",
+        hour: "2",
+      }),
+      targets: [new LambdaFunction(this.exportLambda)],
+    });
 
     this.dataTable.grantReadData(this.exportLambda);
     this.destinationBucket.grantWrite(this.exportLambda);

@@ -21,8 +21,9 @@ export const handler = async () => {
   );
 
   const csvTransform = transform((data: Record<string, AttributeValue>[]) => {
-    console.log("DATA:", data);
-    return data;
+    return data.map((record) =>
+      Object.keys(record).map((field) => JSON.stringify(record[field]))
+    );
   });
 
   const upload = new Upload({
