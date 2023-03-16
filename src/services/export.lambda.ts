@@ -21,6 +21,7 @@ export const handler = async () => {
   );
 
   const csvTransform = transform((data: Record<string, AttributeValue>[]) => {
+    console.log("DATA:", data);
     return data;
   });
 
