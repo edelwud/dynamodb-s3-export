@@ -45,6 +45,6 @@ export class DynamoDBS3ExportStack extends Stack {
     });
 
     this.dataTable.grantReadData(this.exportLambda);
-    this.destinationBucket.grantWrite(this.exportLambda);
+    this.destinationBucket.grantPut(this.exportLambda, "*.csv");
   }
 }

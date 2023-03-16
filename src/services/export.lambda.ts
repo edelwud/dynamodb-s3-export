@@ -30,14 +30,14 @@ export const handler = async () => {
     client: s3Client,
     params: {
       Bucket: process.env.DESTINATION_BUCKET_NAME,
-      Key: new Date().toISOString().split("T")[0],
+      Key: new Date().toISOString().split("T")[0] + ".csv",
       Body: csvTransform,
     },
     leavePartsOnError: false,
   });
 
   for await (const page of ddbItemsPaginator) {
-    csvTransform.write(page.Items);
+    page.Items?.forEach((item) => csvTransform.write(item));
   }
 
   return upload.done();
