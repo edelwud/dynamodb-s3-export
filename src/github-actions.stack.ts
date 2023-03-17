@@ -25,7 +25,7 @@ export class GithubActionsStack extends Stack {
       },
     ],
     synth: new ShellStep("Build", {
-      commands: ["yarn", "npx projen build"],
+      commands: ["npm install", "npx projen build"],
     }),
     awsCreds: AwsCredentials.fromOpenIdConnect({
       gitHubActionRoleArn: `arn:aws:iam::${this.account}:role/GitHubActionRole`,
