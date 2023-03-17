@@ -9,10 +9,10 @@ import { Context, EventBridgeEvent } from "aws-lambda";
 import { stringify } from "csv-stringify";
 import { logger, metrics, tracer } from "../common/powertools";
 
-const s3Client = new S3Client({});
+const s3Client = tracer.captureAWSv3Client(new S3Client({}));
 const ddbItemsPaginator = paginateScan(
   {
-    client: new DynamoDBClient({}),
+    client: tracer.captureAWSv3Client(new DynamoDBClient({})),
   },
   {
     TableName: process.env.DATA_TABLE_NAME,
