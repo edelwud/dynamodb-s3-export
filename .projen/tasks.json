@@ -29,25 +29,25 @@
       "description": "Prepare assets",
       "steps": [
         {
-          "spawn": "bundle:services\\export.lambda"
+          "spawn": "bundle:services/export.lambda"
         }
       ]
     },
-    "bundle:services\\export.lambda": {
-      "name": "bundle:services\\export.lambda",
+    "bundle:services/export.lambda": {
+      "name": "bundle:services/export.lambda",
       "description": "Create a JavaScript bundle from src/services/export.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services\\export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
         }
       ]
     },
-    "bundle:services\\export.lambda:watch": {
-      "name": "bundle:services\\export.lambda:watch",
+    "bundle:services/export.lambda:watch": {
+      "name": "bundle:services/export.lambda:watch",
       "description": "Continuously update the JavaScript bundle from src/services/export.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services\\export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
         }
       ]
     },
