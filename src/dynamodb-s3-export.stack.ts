@@ -1,5 +1,6 @@
 import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
+import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
 import { LayerVersion, Tracing } from "aws-cdk-lib/aws-lambda";
@@ -8,8 +9,13 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { ExportFunction } from "./services/export-function";
 
+export interface DynamoDBS3ExportStackProps extends StackProps {
+  vpc?: Vpc;
+}
+
 export class DynamoDBS3ExportStack extends Stack {
   lambdaCommonProps: Partial<NodejsFunctionProps> = {
+    vpc: this.props?.vpc,
     tracing: Tracing.ACTIVE,
     timeout: Duration.seconds(30),
     environment: {
@@ -46,7 +52,11 @@ export class DynamoDBS3ExportStack extends Stack {
     this.lambdaCommonProps
   );
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(
+    scope: Construct,
+    id: string,
+    private props?: DynamoDBS3ExportStackProps
+  ) {
     super(scope, id, props);
 
     new Rule(this, "ExportInitiator", {

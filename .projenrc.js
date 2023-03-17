@@ -33,7 +33,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   prettier: true,
 
   appEntrypoint:
-    "main.ts && mkdir -p docs/diagram && cp -r cdk.out/cdkgraph/diagram.svg docs/diagram",
+    "main.ts && mkdir -p docs/diagram && cp -r cdk.out/cdkgraph/diagram.png docs/diagram",
   workflowBootstrapSteps: [
     {
       name: "Setup Node.js",
