@@ -98,7 +98,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "19793d1108c21d06a5286f37f2989ecc7377becccea7fd4e9aee83f1ce3f47bc.zip",
+          "S3Key": "68cb3c0ebe43d8924dfc1ae4626e06a1c9ed05a9d261cd351eefabc3caf0bb56.zip",
         },
         "Description": "src/services/export.lambda.ts",
         "Environment": {
@@ -110,9 +110,27 @@ exports[`Snapshot 1`] = `
             "DESTINATION_BUCKET_NAME": {
               "Ref": "Destination920A3C57",
             },
+            "LOG_LEVEL": "DEBUG",
+            "NODE_OPTIONS": "--enable-source-maps",
+            "POWERTOOLS_METRICS_NAMESPACE": "DDBToS3Export",
+            "POWERTOOLS_SERVICE_NAME": "ExportProcess",
           },
         },
         "Handler": "index.handler",
+        "Layers": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:lambda:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":094274105915:layer:AWSLambdaPowertoolsTypeScript:9",
+              ],
+            ],
+          },
+        ],
         "Role": {
           "Fn::GetAtt": [
             "ExportFunctionServiceRole0CD064F7",
@@ -120,6 +138,10 @@ exports[`Snapshot 1`] = `
           ],
         },
         "Runtime": "nodejs18.x",
+        "Timeout": 30,
+        "TracingConfig": {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -158,6 +180,14 @@ exports[`Snapshot 1`] = `
       "Properties": {
         "PolicyDocument": {
           "Statement": [
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
             {
               "Action": [
                 "dynamodb:BatchGetItem",

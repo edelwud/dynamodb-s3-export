@@ -11,6 +11,11 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "@aws-sdk/client-dynamodb",
     "@aws-sdk/client-s3",
     "@aws-sdk/lib-storage",
+    "@aws-lambda-powertools/commons",
+    "@aws-lambda-powertools/logger",
+    "@aws-lambda-powertools/tracer",
+    "@aws-lambda-powertools/metrics",
+    "@middy/core",
     "csv-stringify",
     "@aws-prototyping-sdk/pdk-nag",
     "cdk-nag",
@@ -22,6 +27,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   lambdaOptions: {
     runtime: awscdk.LambdaRuntime.NODEJS_18_X,
+    bundlingOptions: {
+      sourcemap: true,
+      externals: ["@aws-sdk/*", "@aws-lambda-powertools/*"],
+    },
   },
 });
 

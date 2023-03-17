@@ -1,12 +1,33 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
+import { LayerVersion, Tracing } from "aws-cdk-lib/aws-lambda";
+import { NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { ExportFunction } from "./services/export-function";
 
 export class DynamoDBS3ExportStack extends Stack {
+  lambdaCommonProps: Partial<NodejsFunctionProps> = {
+    tracing: Tracing.ACTIVE,
+    timeout: Duration.seconds(30),
+    environment: {
+      NODE_OPTIONS: "--enable-source-maps",
+      LOG_LEVEL: "DEBUG",
+      POWERTOOLS_METRICS_NAMESPACE: "DDBToS3Export",
+    },
+    layers: [
+      LayerVersion.fromLayerVersionArn(
+        this,
+        "powertools-layer",
+        `arn:aws:lambda:${
+          Stack.of(this).region
+        }:094274105915:layer:AWSLambdaPowertoolsTypeScript:9`
+      ),
+    ],
+  };
+
   dataTable = new Table(this, "DataTable", {
     partitionKey: {
       name: "name",
@@ -19,12 +40,11 @@ export class DynamoDBS3ExportStack extends Stack {
     enforceSSL: true,
   });
 
-  exportLambda = new ExportFunction(this, "ExportFunction", {
-    environment: {
-      DATA_TABLE_NAME: this.dataTable.tableName,
-      DESTINATION_BUCKET_NAME: this.destinationBucket.bucketName,
-    },
-  });
+  exportLambda = new ExportFunction(
+    this,
+    "ExportFunction",
+    this.lambdaCommonProps
+  );
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -39,5 +59,18 @@ export class DynamoDBS3ExportStack extends Stack {
 
     this.dataTable.grantReadData(this.exportLambda);
     this.destinationBucket.grantPut(this.exportLambda, "*.csv");
+
+    this.exportLambda.addEnvironment(
+      "DATA_TABLE_NAME",
+      this.dataTable.tableName
+    );
+    this.exportLambda.addEnvironment(
+      "DESTINATION_BUCKET_NAME",
+      this.destinationBucket.bucketName
+    );
+    this.exportLambda.addEnvironment(
+      "POWERTOOLS_SERVICE_NAME",
+      "ExportProcess"
+    );
   }
 }

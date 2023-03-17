@@ -38,7 +38,7 @@
       "description": "Create a JavaScript bundle from src/services/export.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --external:@aws-lambda-powertools/* --sourcemap"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "description": "Continuously update the JavaScript bundle from src/services/export.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "exec": "esbuild --bundle src/services/export.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/services/export.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --external:@aws-lambda-powertools/* --sourcemap --watch"
         }
       ]
     },
