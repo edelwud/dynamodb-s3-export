@@ -10,7 +10,7 @@ This is example repo which represents best-practice for exporting data from Dyna
 ## Installation
 ```bash
 export AWS_PROFILE=your-profile
-cdk bootstrap (if you haven't done it before)
+cdk bootstrap (if you haven\'t done it before)
 
 npm install
 projen build
