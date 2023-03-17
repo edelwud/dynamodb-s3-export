@@ -25,6 +25,17 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   prettier: true,
   gitignore: [".idea"],
 
+  workflowBootstrapSteps: [
+    {
+      name: "Setup Node.js",
+      uses: "actions/setup-node@v3",
+      with: {
+        "node-version": "18",
+        cache: "yarn",
+      },
+    },
+  ],
+
   lambdaOptions: {
     runtime: awscdk.LambdaRuntime.NODEJS_18_X,
     bundlingOptions: {

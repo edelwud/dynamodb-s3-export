@@ -14,6 +14,16 @@ export class GithubActionsStack extends Stack {
   });
 
   pipeline = new GitHubWorkflow(this, "Pipeline", {
+    preBuildSteps: [
+      {
+        name: "Setup Node.js",
+        uses: "actions/setup-node@v3",
+        with: {
+          "node-version": 18,
+          cache: "yarn",
+        },
+      },
+    ],
     synth: new ShellStep("Build", {
       commands: ["yarn", "npx projen build"],
     }),
@@ -31,7 +41,7 @@ export class GithubActionsStack extends Stack {
     NagSuppressions.addStackSuppressions(this, [
       {
         id: "AwsSolutions-IAM5",
-        reason: "Allow to create all resources for deploy role",
+        reason: "Allow creating all resources for deploy role",
         appliesTo: ["Resource::*"],
       },
     ]);
