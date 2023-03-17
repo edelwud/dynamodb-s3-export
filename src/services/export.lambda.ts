@@ -5,6 +5,7 @@ import { DynamoDBClient, paginateScan } from "@aws-sdk/client-dynamodb";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import middy from "@middy/core";
+import { Context, EventBridgeEvent } from "aws-lambda";
 import { stringify } from "csv-stringify";
 import { logger, metrics, tracer } from "../common/powertools";
 
@@ -18,7 +19,14 @@ const ddbItemsPaginator = paginateScan(
   }
 );
 
-export const exportDDBTableToS3 = async () => {
+export const exportDDBTableToS3 = async (
+  _: EventBridgeEvent<"Scheduled Event", any>,
+  context: Context
+) => {
+  logger.appendKeys({
+    awsRequestId: context.awsRequestId,
+  });
+
   const stringifier = stringify();
   const upload = new Upload({
     client: s3Client,
@@ -32,6 +40,7 @@ export const exportDDBTableToS3 = async () => {
 
   try {
     for await (const page of ddbItemsPaginator) {
+      logger.debug("Number of scanned items: " + page.ScannedCount);
       page.Items?.forEach((item) =>
         stringifier.write(
           Object.keys(item).map((field) => JSON.stringify(item[field]))
@@ -39,7 +48,10 @@ export const exportDDBTableToS3 = async () => {
       );
     }
     stringifier.end();
-    await upload.done();
+    tracer.putAnnotation("is-ddb-scanned-successfully", true);
+
+    const result = await upload.done();
+    logger.info("Upload result: " + result.$metadata.httpStatusCode);
   } catch (err) {
     tracer.addErrorAsMetadata(err as Error);
     logger.error("Error reading from table. " + err);

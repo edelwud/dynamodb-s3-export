@@ -21,6 +21,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "cdk-nag",
     "cdk-pipelines-github",
   ],
+  devDeps: ["@types/aws-lambda"],
 
   prettier: true,
   gitignore: [".idea"],
