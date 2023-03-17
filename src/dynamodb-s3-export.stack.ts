@@ -4,8 +4,10 @@ import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
 import { LayerVersion, Tracing } from "aws-cdk-lib/aws-lambda";
+import { SqsDestination } from "aws-cdk-lib/aws-lambda-destinations";
 import { NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Queue } from "aws-cdk-lib/aws-sqs";
 import { Construct } from "constructs";
 import { ExportFunction } from "./services/export-function";
 
@@ -49,7 +51,9 @@ export class DynamoDBS3ExportStack extends Stack {
   exportLambda = new ExportFunction(
     this,
     "ExportFunction",
-    this.lambdaCommonProps
+    Object.assign(this.lambdaCommonProps, {
+      onFailure: new SqsDestination(new Queue(this, "ExportFailureQueue")),
+    })
   );
 
   constructor(

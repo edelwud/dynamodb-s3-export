@@ -88,6 +88,11 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::S3::BucketPolicy",
     },
+    "ExportFailureQueue52DA2A96": {
+      "DeletionPolicy": "Delete",
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
     "ExportFunctionD1E50CEC": {
       "DependsOn": [
         "ExportFunctionServiceRoleDefaultPolicy3C842E61",
@@ -145,6 +150,25 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
+    "ExportFunctionEventInvokeConfig0CBBC94B": {
+      "Properties": {
+        "DestinationConfig": {
+          "OnFailure": {
+            "Destination": {
+              "Fn::GetAtt": [
+                "ExportFailureQueue52DA2A96",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "FunctionName": {
+          "Ref": "ExportFunctionD1E50CEC",
+        },
+        "Qualifier": "$LATEST",
+      },
+      "Type": "AWS::Lambda::EventInvokeConfig",
+    },
     "ExportFunctionServiceRole0CD064F7": {
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -187,6 +211,20 @@ exports[`Snapshot 1`] = `
               ],
               "Effect": "Allow",
               "Resource": "*",
+            },
+            {
+              "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ExportFailureQueue52DA2A96",
+                  "Arn",
+                ],
+              },
             },
             {
               "Action": [
