@@ -6,6 +6,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   description:
     "Export data from DynamoDB table to S3 bucket everyday at 2:00 AM UTC time",
 
+  release: true,
+  majorVersion: 1,
   defaultReleaseBranch: "main",
   gitignore: [".idea"],
 
