@@ -7,6 +7,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "Export data from DynamoDB table to S3 bucket everyday at 2:00 AM UTC time",
 
   defaultReleaseBranch: "main",
+  gitignore: [".idea"],
+
+  packageManager: NodePackageManager.NPM,
   cdkVersion: "2.69.0",
   deps: [
     "@aws-sdk/client-dynamodb",
@@ -27,12 +30,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "fs-extra",
   ],
   devDeps: ["@types/aws-lambda"],
-
-  packageManager: NodePackageManager.NPM,
-
   prettier: true,
-  gitignore: [".idea"],
 
+  appEntrypoint:
+    "main.ts && mkdir -p docs/diagram && cp -r cdk.out/cdkgraph/diagram.svg docs/diagram",
   workflowBootstrapSteps: [
     {
       name: "Setup Node.js",

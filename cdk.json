@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node -P tsconfig.json --prefer-ts-exts src/main.ts",
+  "app": "npx ts-node -P tsconfig.json --prefer-ts-exts src/main.ts && mkdir -p docs/diagram && cp -r cdk.out/cdkgraph/diagram.svg docs/diagram",
   "output": "cdk.out",
   "build": "npx projen bundle",
   "watch": {
