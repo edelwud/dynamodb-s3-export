@@ -1,4 +1,5 @@
 import { Duration, Stack, StackProps } from "aws-cdk-lib";
+import { Alarm } from "aws-cdk-lib/aws-cloudwatch";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
@@ -48,11 +49,13 @@ export class DynamoDBS3ExportStack extends Stack {
     enforceSSL: true,
   });
 
+  exportFunctionDLQ = new Queue(this, "ExportFailureQueue");
+
   exportLambda = new ExportFunction(
     this,
     "ExportFunction",
     Object.assign(this.lambdaCommonProps, {
-      onFailure: new SqsDestination(new Queue(this, "ExportFailureQueue")),
+      onFailure: new SqsDestination(this.exportFunctionDLQ),
     })
   );
 
@@ -86,5 +89,12 @@ export class DynamoDBS3ExportStack extends Stack {
       "POWERTOOLS_SERVICE_NAME",
       "ExportProcess"
     );
+
+    new Alarm(this, "ExportFunctionAlarm", {
+      alarmDescription: "There are messages in the Dead Letter Queue",
+      evaluationPeriods: 1,
+      threshold: 1,
+      metric: this.exportFunctionDLQ.metricApproximateNumberOfMessagesVisible(),
+    });
   }
 }
