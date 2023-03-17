@@ -20,7 +20,7 @@ export class GithubActionsStack extends Stack {
         uses: "actions/setup-node@v3",
         with: {
           "node-version": 18,
-          cache: "yarn",
+          cache: "npm",
         },
       },
     ],

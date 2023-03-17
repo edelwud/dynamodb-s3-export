@@ -1,4 +1,5 @@
 const { awscdk } = require("projen");
+const { NodePackageManager } = require("projen/lib/javascript");
 
 const project = new awscdk.AwsCdkTypeScriptApp({
   name: "dynamodb-s3-export",
@@ -15,13 +16,19 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "@aws-lambda-powertools/logger",
     "@aws-lambda-powertools/tracer",
     "@aws-lambda-powertools/metrics",
+    "@aws-prototyping-sdk/aws-arch",
+    "@aws-prototyping-sdk/cdk-graph",
+    "@aws-prototyping-sdk/cdk-graph-plugin-diagram",
+    "@aws-prototyping-sdk/pdk-nag",
     "@middy/core",
     "csv-stringify",
-    "@aws-prototyping-sdk/pdk-nag",
     "cdk-nag",
     "cdk-pipelines-github",
+    "fs-extra",
   ],
   devDeps: ["@types/aws-lambda"],
+
+  packageManager: NodePackageManager.NPM,
 
   prettier: true,
   gitignore: [".idea"],
@@ -32,7 +39,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       uses: "actions/setup-node@v3",
       with: {
         "node-version": "18",
-        cache: "yarn",
+        cache: "npm",
       },
     },
   ],

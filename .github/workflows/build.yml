@@ -23,9 +23,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: yarn
+          cache: npm
       - name: Install dependencies
-        run: yarn install --check-files
+        run: npm install
       - name: build
         run: npx projen build
       - name: Find mutations

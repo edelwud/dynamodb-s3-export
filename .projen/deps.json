@@ -108,6 +108,18 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-prototyping-sdk/aws-arch",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-prototyping-sdk/cdk-graph",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-prototyping-sdk/cdk-graph-plugin-diagram",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-prototyping-sdk/pdk-nag",
       "type": "runtime"
     },
@@ -147,6 +159,10 @@
     },
     {
       "name": "csv-stringify",
+      "type": "runtime"
+    },
+    {
+      "name": "fs-extra",
       "type": "runtime"
     }
   ],
